@@ -11,6 +11,7 @@ interface IFormInput {
     name: string;
     email:string ;
     comment:string;
+    x:any;
 }
 
 
@@ -20,10 +21,10 @@ interface Props {
 
 function Post({post}:Props) {
     const [submitted, setSubmitted] = useState(false);
-    const { register, handleSubmit, formState: {errors} } = useForm();
-    console.log(post);
+    const { register, handleSubmit, formState: {errors} } = useForm<IFormInput>();
+    // console.log(post);
 
-    const onSubmit = async(data) => {
+    const onSubmit:SubmitHandler<IFormInput> = async(data) => {
         await fetch('/api/createComment',{
             method:'POST',
             body:JSON.stringify(data),
